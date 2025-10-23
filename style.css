@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #0b1d3a;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 8%;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #d9e4ff;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #5ca8ff;
+}
+
+.contact-btn {
+  border: 1px solid #5ca8ff;
+  padding: 8px 18px;
+  border-radius: 25px;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 80px 10%;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 30px;
+}
+
+.cta {
+  background-color: #5ca8ff;
+  color: white;
+  padding: 15px 35px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.cta:hover {
+  background-color: #7bbcff;
+}
+
+.hero-img {
+  width: 60%;
+  margin-top: 40px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+/* Models Section */
+.models {
+  background-color: #11284f;
+  padding: 80px 10%;
+  border-radius: 30px 30px 0 0;
+  margin-top: 60px;
+}
+
+.models-content {
+  text-align: center;
+}
+
+.models h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.models p {
+  color: #c8d6ff;
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+}
+
+.model-img {
+  width: 50%;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+/* Industry Section */
+.industry {
+  text-align: center;
+  padding: 80px 10%;
+}
+
+.industry h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.industry p {
+  max-width: 650px;
+  margin: 0 auto;
+  color: #c8d6ff;
+}
+
+/* Fade-in + Slide animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-up.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
