@@ -7,7 +7,7 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.2 });
 
-document.querySelectorAll('.fade-in, .slide-up').forEach(el => {
+document.querySelectorAll('.fade-in, .slide-up, .design-img').forEach(el => {
   observer.observe(el);
 });
 

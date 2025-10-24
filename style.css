@@ -374,6 +374,47 @@ body::before {
   transition: opacity 1.2s ease, transform 1.2s ease, box-shadow 200ms ease;
 }
 
+/* New styles for the design image */
+.design-img {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(6,18,40,0.5);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.design-img.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Adjust the media container to properly show the design image */
+.models-media {
+  flex: 0 0 48%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .design-img {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+  
+  .models-grid {
+    flex-direction: column;
+  }
+  
+  .models-media {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
 /* Industry Section */
 .industry {
   text-align: center;
