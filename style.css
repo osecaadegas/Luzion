@@ -6,8 +6,8 @@
 }
 
 body {
-  /* Deep navy background matching the image exactly */
-  background-color: #010408;
+  /* Rich electric blue background */
+  background-color: #011834;
   color: #fff;
   overflow-x: hidden;
   position: relative;
@@ -24,26 +24,31 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -2;
-  background: linear-gradient(140deg, #010509, #020c1d);
+  background: linear-gradient(140deg, 
+    #012147,
+    #013467
+  );
   pointer-events: none;
 }
 
 /* Base gradient provides subtle depth while keeping the design clean */
 
-/* Clean geometric overlay matching the precise angles from the image */
+/* Electric blue geometric overlay with precise angles */
 .bg-shapes {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
   background-image:
-    /* Main diagonal slice matching car angle */
-    linear-gradient(125deg, transparent 0%, transparent 45%, #020b1a 45.5%),
-    /* Upper right angular cut */
-    linear-gradient(230deg, transparent 0%, transparent 55%, #01070f 55.5%),
-    /* Additional geometric accent */
-    linear-gradient(140deg, #010509 0%, #010509 25%, transparent 25.5%);
-  background-size: 100% 100%;
+    /* Main diagonal slice with vibrant blue */
+    linear-gradient(125deg, transparent 0%, transparent 45%, #012a5e 45.5%),
+    /* Upper right angular cut with deeper accent */
+    linear-gradient(230deg, transparent 0%, transparent 55%, #001b44 55.5%),
+    /* Additional geometric accent with electric highlight */
+    linear-gradient(140deg, #013a7c 0%, #013a7c 25%, transparent 25.5%),
+    /* Subtle electric glow */
+    radial-gradient(circle at 70% 120%, #0066ff15 0%, transparent 45%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   background-position: center;
   opacity: 1;
 }
@@ -60,11 +65,12 @@ body::before {
 /* Responsive: reduce blur/opacity on smaller screens to improve performance and legibility */
 @media (max-width: 900px) {
   .bg-shapes {
-    /* Adjust angles slightly for better mobile composition */
+    /* Adjust angles and maintain electric blue tones on mobile */
     background-image:
-      linear-gradient(125deg, transparent 0%, transparent 40%, #020b1a 40.5%),
-      linear-gradient(230deg, transparent 0%, transparent 60%, #01070f 60.5%),
-      linear-gradient(140deg, #010509 0%, #010509 20%, transparent 20.5%);
+      linear-gradient(125deg, transparent 0%, transparent 40%, #012a5e 40.5%),
+      linear-gradient(230deg, transparent 0%, transparent 60%, #001b44 60.5%),
+      linear-gradient(140deg, #013a7c 0%, #013a7c 20%, transparent 20.5%),
+      radial-gradient(circle at 70% 120%, #0066ff10 0%, transparent 45%);
   }
 
   /* Stack the models layout on medium and smaller screens */
@@ -75,6 +81,31 @@ body::before {
   }
   .models-text { text-align: center; }
   .models-media { width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .ev-stats {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.2rem;
+    width: calc(100% - 3rem);
+    max-width: 400px;
+  }
+
+  .stat-group {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .stat {
+    text-align: center;
+    min-width: auto;
+  }
+
+  .ev-icon {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -90,6 +121,11 @@ body::before {
   .logo { font-size: 1.4rem; }
   /* on very small screens keep logo inline so it doesn't overlap nav links */
   .logo { position: static; transform: none; z-index: 2; }
+
+  .ev-stats {
+    margin: 1rem auto 2rem;
+    width: calc(100% - 2rem);
+  }
 }
 
 /* Navbar */
@@ -185,6 +221,74 @@ body::before {
   margin-bottom: 30px;
 }
 
+/* EV Stats Section */
+.ev-stats-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.ev-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  background: linear-gradient(120deg, rgba(1,41,102,0.3), rgba(0,102,255,0.1));
+  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  border: 1px solid rgba(0,102,255,0.2);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  transform: translateY(-20px);
+  margin: 0 auto;
+}
+
+.ev-icon {
+  font-size: 2.5rem;
+  color: #0066ff;
+  text-shadow: 0 0 15px rgba(0,102,255,0.5);
+  animation: pulse 2s infinite;
+}
+
+.stat-group {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.stat {
+  text-align: left;
+  min-width: 120px;
+}
+
+.stat .value {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.stat .label {
+  font-size: 0.9rem;
+  color: #7aafff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat.highlight .value {
+  color: #0066ff;
+  text-shadow: 0 0 10px rgba(0,102,255,0.3);
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
 .cta {
   background: linear-gradient(90deg, #4fa7ff 0%, #79c2ff 120%);
   color: #04111f;
@@ -210,6 +314,7 @@ body::before {
 .hero-img {
   width: 60%;
   margin-top: 40px;
+  margin-bottom: -20px;
   opacity: 0;
   transform: translateY(50px);
   transition: opacity 1.2s ease, transform 1.2s ease;
