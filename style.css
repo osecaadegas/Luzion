@@ -6,9 +6,90 @@
 }
 
 body {
-  background-color: #0b1d3a;
+  /* Deep navy background matching the image exactly */
+  background-color: #010408;
   color: #fff;
   overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Decorative blurred background images that match the hero/model images.
+   Uses the project images `car2.png` (left) and `car1.png` (right).
+   These are low-opacity and blurred so they act as a color/backdrop rather than compete
+   with page content. If the images are missing, the fallback background-color remains.
+*/
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(140deg, #010509, #020c1d);
+  pointer-events: none;
+}
+
+/* Base gradient provides subtle depth while keeping the design clean */
+
+/* Clean geometric overlay matching the precise angles from the image */
+.bg-shapes {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    /* Main diagonal slice matching car angle */
+    linear-gradient(125deg, transparent 0%, transparent 45%, #020b1a 45.5%),
+    /* Upper right angular cut */
+    linear-gradient(230deg, transparent 0%, transparent 55%, #01070f 55.5%),
+    /* Additional geometric accent */
+    linear-gradient(140deg, #010509 0%, #010509 25%, transparent 25.5%);
+  background-size: 100% 100%;
+  background-position: center;
+  opacity: 1;
+}
+
+/* Ensure site content stacks above the decorative background */
+.navbar,
+.hero,
+.models,
+.industry {
+  position: relative;
+  z-index: 2;
+}
+
+/* Responsive: reduce blur/opacity on smaller screens to improve performance and legibility */
+@media (max-width: 900px) {
+  .bg-shapes {
+    /* Adjust angles slightly for better mobile composition */
+    background-image:
+      linear-gradient(125deg, transparent 0%, transparent 40%, #020b1a 40.5%),
+      linear-gradient(230deg, transparent 0%, transparent 60%, #01070f 60.5%),
+      linear-gradient(140deg, #010509 0%, #010509 20%, transparent 20.5%);
+  }
+
+  /* Stack the models layout on medium and smaller screens */
+  .models-grid {
+    flex-direction: column-reverse;
+    gap: 26px;
+    padding: 0 20px;
+  }
+  .models-text { text-align: center; }
+  .models-media { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  body::before,
+  body::after {
+    display: none; /* remove heavy decorative images on small devices for clarity */
+  }
+  .bg-shapes {
+    display: none; /* hide shapes on very small screens for legibility */
+  }
+  .nav-links { gap: 8px; }
+  .nav-links a { padding: 8px 10px; font-size: 0.95rem; }
+  .logo { font-size: 1.4rem; }
+  /* on very small screens keep logo inline so it doesn't overlap nav links */
+  .logo { position: static; transform: none; z-index: 2; }
 }
 
 /* Navbar */
@@ -17,35 +98,78 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 25px 8%;
+  position: relative; /* allow absolute-centering of the logo */
 }
 
 .logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  letter-spacing: 2px;
+  /* center the logo image in the navbar */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3; /* stay above shapes and nav items */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+}
+
+.logo-img {
+  display: block;
+  height: 44px;
+  width: auto;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 30px;
+  gap: 18px;
 }
 
 .nav-links a {
   text-decoration: none;
   color: #d9e4ff;
-  font-size: 1rem;
-  transition: color 0.3s;
+  font-size: 0.98rem;
+  transition: color 180ms ease, transform 180ms ease;
+  padding: 10px 14px;
+  border-radius: 14px;
 }
 
 .nav-links a:hover {
-  color: #5ca8ff;
+  color: #ffffff;
+  background: rgba(92,168,255,0.08);
+  transform: translateY(-2px);
 }
 
 .contact-btn {
-  border: 1px solid #5ca8ff;
-  padding: 8px 18px;
-  border-radius: 25px;
+  border-radius: 24px;
+}
+
+/* Shared button style */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: linear-gradient(90deg, #4fa7ff 0%, #6ec0ff 100%);
+  color: #051229;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 6px 18px rgba(10,35,70,0.35);
+  border-radius: 24px;
+  transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(8,35,80,0.45);
+}
+
+/* Contact button uses a subtle transparent variant in the navbar */
+.contact-btn {
+  background: linear-gradient(90deg, rgba(92,168,255,0.12), rgba(110,192,255,0.08));
+  color: #dff0ff;
+  border: 1px solid rgba(92,168,255,0.22);
 }
 
 /* Hero Section */
@@ -62,19 +186,26 @@ body {
 }
 
 .cta {
-  background-color: #5ca8ff;
-  color: white;
-  padding: 15px 35px;
+  background: linear-gradient(90deg, #4fa7ff 0%, #79c2ff 120%);
+  color: #04111f;
+  padding: 14px 36px;
+  border-radius: 28px;
   border: none;
-  border-radius: 25px;
-  font-size: 1rem;
+  font-size: 1.05rem;
   cursor: pointer;
-  transition: background 0.3s;
+  box-shadow: 0 8px 24px rgba(10,35,70,0.35);
 }
 
 .cta:hover {
-  background-color: #7bbcff;
+  transform: translateY(-3px);
 }
+
+.cta:active {
+  transform: translateY(-1px);
+}
+
+/* make hero CTA compatible with .btn */
+.hero .cta { padding: 16px 40px; }
 
 .hero-img {
   width: 60%;
@@ -92,27 +223,50 @@ body {
   margin-top: 60px;
 }
 
-.models-content {
-  text-align: center;
+/* Models: two-column responsive layout with image beside descriptive text */
+.models-grid {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.models h2 {
+.models-text {
+  flex: 1 1 48%;
+  color: #e7f0ff;
+}
+
+.models-text h2 {
   font-size: 2rem;
   margin-bottom: 20px;
+  text-align: left;
 }
 
-.models p {
-  color: #c8d6ff;
+.models-text p {
+  color: #cfe6ff;
   font-size: 1rem;
-  max-width: 600px;
-  margin: 0 auto 40px auto;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.models-text .muted { color: #9fbbe6; margin-top: 6px; }
+
+.models-media {
+  flex: 0 0 48%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .model-img {
-  width: 50%;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 12px;
+  box-shadow: 0 18px 45px rgba(6,18,40,0.6);
   opacity: 0;
   transform: translateY(50px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
+  transition: opacity 1.2s ease, transform 1.2s ease, box-shadow 200ms ease;
 }
 
 /* Industry Section */
@@ -147,4 +301,10 @@ body {
 .slide-up.visible {
   opacity: 1 !important;
   transform: translateY(0) !important;
+}
+
+@media (min-width: 1200px) {
+  /* slightly larger logo on very wide screens */
+  .logo { height: 68px; }
+  .logo-img { height: 56px; }
 }
