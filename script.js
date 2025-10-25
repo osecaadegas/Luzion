@@ -7,19 +7,31 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.2 });
 
-document.querySelectorAll('.fade-in, .slide-up, .design-img, .about-img').forEach(el => {
+document.querySelectorAll('.fade-in, .slide-up, .design-img, .about-img, .industry-img').forEach(el => {
   observer.observe(el);
 });
 
-// Fallback for about image: if the external file is missing, replace with an inline SVG placeholder
-document.querySelectorAll('.about-img').forEach(img => {
-  img.addEventListener('error', () => {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+// Generic inline SVG fallback generator
+function svgFallback(text, w = 800, h = 500) {
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
       <rect width="100%" height="100%" fill="#012147" />
-      <text x="50%" y="50%" fill="#7aafff" font-family="Poppins, sans-serif" font-size="20" text-anchor="middle" dominant-baseline="middle">Imagem indisponível</text>
-    </svg>`;
-    img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+      <text x="50%" y="50%" fill="#7aafff" font-family="Poppins, sans-serif" font-size="20" text-anchor="middle" dominant-baseline="middle">${text}</text>
+    </svg>
+  `);
+}
+
+// Fallback handlers for images that may be missing
+document.querySelectorAll('.about-img, .industry-img, .design-img, .vantagens-img').forEach(img => {
+  img.addEventListener('error', () => {
+    img.src = svgFallback('Imagem indisponível');
+    // ensure animation still triggers
+    img.classList.add('visible');
   });
+  // in case image is already cached as missing, trigger error handler manually
+  if (img.complete && img.naturalWidth === 0) {
+    img.dispatchEvent(new Event('error'));
+  }
 });
 
 // Smooth scroll para links do menu
