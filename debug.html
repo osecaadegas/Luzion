@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Debug</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #012147;
+            color: white;
+        }
+        
+        .test-btn {
+            background: #4fa7ff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        
+        .test-btn:hover {
+            background: #6ec0ff;
+        }
+        
+        .debug-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        
+        .status {
+            color: #4fffb0;
+        }
+        
+        .error {
+            color: #ff8787;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculator Debug Page</h1>
+    
+    <div class="debug-info">
+        <h3>Debug Information:</h3>
+        <div id="debug-output"></div>
+    </div>
+    
+    <button class="test-btn" onclick="testElements()">Test Elements</button>
+    <button class="test-btn" onclick="testPopup()">Test Popup</button>
+    <button class="test-btn" onclick="testCalculation()">Test Calculation</button>
+    
+    <div id="test-popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #013467; padding: 20px; border-radius: 10px; z-index: 9999;">
+        <h3>Test Popup</h3>
+        <p>This popup works!</p>
+        <button onclick="document.getElementById('test-popup').style.display='none'">Close</button>
+    </div>
+
+    <script>
+        function log(message, type = 'status') {
+            const output = document.getElementById('debug-output');
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = new Date().toLocaleTimeString() + ': ' + message;
+            output.appendChild(div);
+        }
+        
+        function testElements() {
+            log('Testing element existence...');
+            
+            const openCalcBtn = document.getElementById('openCalcBtn');
+            const calculatorPopup = document.getElementById('calculator-popup');
+            const calcBtn = document.getElementById('calcBtn');
+            
+            log('openCalcBtn: ' + (openCalcBtn ? 'FOUND' : 'NOT FOUND'), openCalcBtn ? 'status' : 'error');
+            log('calculatorPopup: ' + (calculatorPopup ? 'FOUND' : 'NOT FOUND'), calculatorPopup ? 'status' : 'error');
+            log('calcBtn: ' + (calcBtn ? 'FOUND' : 'NOT FOUND'), calcBtn ? 'status' : 'error');
+            
+            if (openCalcBtn) {
+                log('openCalcBtn classes: ' + openCalcBtn.className);
+            }
+            if (calculatorPopup) {
+                log('calculatorPopup classes: ' + calculatorPopup.className);
+            }
+        }
+        
+        function testPopup() {
+            log('Testing popup functionality...');
+            document.getElementById('test-popup').style.display = 'block';
+        }
+        
+        function testCalculation() {
+            log('Testing calculation logic...');
+            
+            const testInputs = {
+                dailyDistance: 20,
+                daysPerMonth: 22,
+                currentConsumption: 7,
+                fuelPrice: 1.8,
+                electricityPrice: 0.15
+            };
+            
+            const LUZION_CONSUMPTION = 10;
+            const CO2_PER_LITER = 2.31;
+            
+            const monthlyDistance = testInputs.dailyDistance * testInputs.daysPerMonth;
+            const currentFuelConsumption = (monthlyDistance / 100) * testInputs.currentConsumption;
+            const currentMonthlyCost = currentFuelConsumption * testInputs.fuelPrice;
+            const luzionEnergyConsumption = (monthlyDistance / 100) * LUZION_CONSUMPTION;
+            const luzionMonthlyCost = luzionEnergyConsumption * testInputs.electricityPrice;
+            const monthlySavings = currentMonthlyCost - luzionMonthlyCost;
+            
+            log('Monthly distance: ' + monthlyDistance + ' km');
+            log('Current monthly cost: €' + currentMonthlyCost.toFixed(2));
+            log('Luzion monthly cost: €' + luzionMonthlyCost.toFixed(2));
+            log('Monthly savings: €' + monthlySavings.toFixed(2));
+        }
+        
+        // Auto-run tests on load
+        window.onload = function() {
+            log('Debug page loaded');
+            setTimeout(testElements, 500);
+        };
+    </script>
+</body>
+</html>
