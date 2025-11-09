@@ -1019,7 +1019,7 @@ body::before {
 }
 
 .nav-round-btn .btn-icon {
-  font-size: 0.9rem;
+  font-size: 1.4rem;
 }
 
 /* Test-drive Button */
@@ -1081,7 +1081,7 @@ body::before {
 }
 
 .contact-nav-btn .btn-icon {
-  font-size: 0.9rem;
+  font-size: 1.4rem;
 }
 
 .test-drive-btn {
@@ -1124,7 +1124,7 @@ body::before {
 }
 
 .test-drive-btn .btn-icon {
-  font-size: 1rem;
+  font-size: 1.4rem;
 }
 
 /* Encomendas Button Styling */
@@ -1167,7 +1167,7 @@ body::before {
 }
 
 .encomendas-btn .btn-icon {
-  font-size: 1rem;
+  font-size: 1.4rem;
 }
 
 .contact-btn {
@@ -2762,7 +2762,7 @@ body::before {
 
 .benefits-list {
   list-style: none;
-  margin: 200px 0 20px 0; /* Increased top margin to move boxes even lower */
+  margin: 130px 0 20px 0; /* Adjusted top margin to move boxes higher */
   padding: 0;
   display: flex;
   flex-direction: column;
